@@ -11,18 +11,21 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.inter.courseapp.R
 import com.inter.courseapp.databinding.FragmentMainBinding
+import com.inter.courseapp.di.utils.ViewModelFactory
 import com.inter.courseapp.extensions.setupWithNavController
+import com.inter.courseapp.models.usecases.GetFoodRecipesUseCase
 import com.inter.courseapp.ui.architecture.BaseFragment
+import com.inter.courseapp.ui.viewmodels.MainViewModel
 import javax.inject.Inject
 
-class MainFragment @Inject constructor() : BaseFragment<FragmentMainBinding>() {
-
+class MainFragment @Inject constructor(
+    viewModelFactory: ViewModelFactory
+) :
+    BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupBottomNavigation()
-
     }
 
     private fun setupBottomNavigation() = binding
@@ -40,6 +43,5 @@ class MainFragment @Inject constructor() : BaseFragment<FragmentMainBinding>() {
 
     override fun getViewBinding(layoutInflater: LayoutInflater) =
         FragmentMainBinding.inflate(layoutInflater)
-
 
 }

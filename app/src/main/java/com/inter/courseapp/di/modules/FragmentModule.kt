@@ -5,14 +5,13 @@ import com.inter.courseapp.di.utils.FragmentKey
 import com.inter.courseapp.ui.fragments.FavoritesRecipesFragment
 import com.inter.courseapp.ui.fragments.FoodRecipesFragment
 import com.inter.courseapp.ui.fragments.MainFragment
+
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
-
 @Module
 interface FragmentModule {
-
     @Binds
     @IntoMap
     @FragmentKey(MainFragment::class)
