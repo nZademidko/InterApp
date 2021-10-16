@@ -12,6 +12,7 @@ import dagger.multibindings.IntoMap
 
 @Module
 interface FragmentModule {
+
     @Binds
     @IntoMap
     @FragmentKey(MainFragment::class)

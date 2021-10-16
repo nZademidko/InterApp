@@ -9,19 +9,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.snackbar.Snackbar
 import com.inter.courseapp.di.utils.ViewModelFactory
+import com.inter.courseapp.ui.viewmodels.MainViewModel
 import javax.inject.Inject
 
-abstract class BaseFragment<VB : ViewBinding, out VM>(
+abstract class BaseFragment<VB : ViewBinding>(
     layoutId: Int,
 ) : Fragment(layoutId) {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    protected val viewModel: VM by viewModels { viewModelFactory }
+
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
+
     abstract fun getViewBinding(layoutInflater: LayoutInflater): VB
 
     override fun onCreateView(
@@ -32,6 +33,10 @@ abstract class BaseFragment<VB : ViewBinding, out VM>(
         _binding = getViewBinding(layoutInflater)
         return binding.root
     }
+
+
+    fun sendSnackBarMessage(message: String) =
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
 
     override fun onDestroyView() {
         super.onDestroyView()

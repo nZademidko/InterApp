@@ -1,6 +1,6 @@
 package com.inter.courseapp.models.entities.api
 
-import com.example.foody.models.FoodRecipe
+import com.inter.courseapp.models.entities.foodRecipe.FoodRecipe
 import com.google.gson.annotations.SerializedName
 
 data class FoodRecipeResponse(
