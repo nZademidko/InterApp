@@ -10,7 +10,7 @@ import com.inter.courseapp.ui.viewmodels.FavoritesRecipesViewModel
 import javax.inject.Inject
 
 class FavoritesRecipesFragment @Inject constructor(
-) : BaseFragment<FragmentFavoritesRecipesBinding, FavoritesRecipesViewModel>(
+) : BaseFragment<FragmentFavoritesRecipesBinding>(
     R.layout.fragment_favorites_recipes
 ) {
 

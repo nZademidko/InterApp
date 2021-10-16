@@ -1,4 +1,4 @@
-package com.example.foody.models
+package com.inter.courseapp.models.entities.foodRecipe
 
 import com.google.gson.annotations.SerializedName
 

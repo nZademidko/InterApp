@@ -18,10 +18,10 @@ import com.inter.courseapp.ui.architecture.BaseFragment
 import com.inter.courseapp.ui.viewmodels.MainViewModel
 import javax.inject.Inject
 
-class MainFragment @Inject constructor(
-    viewModelFactory: ViewModelFactory
-) :
-    BaseFragment<FragmentMainBinding, MainViewModel>(R.layout.fragment_main) {
+class MainFragment @Inject constructor() :
+    BaseFragment<FragmentMainBinding>(
+        R.layout.fragment_main
+    ) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
