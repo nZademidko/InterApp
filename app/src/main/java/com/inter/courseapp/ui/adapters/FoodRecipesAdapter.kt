@@ -9,12 +9,15 @@ import coil.transform.CircleCropTransformation
 import com.inter.courseapp.databinding.FoodRecipeItemListBinding
 import com.inter.courseapp.models.entities.foodRecipe.FoodRecipe
 import com.inter.courseapp.utils.FoodRecipesDiffUtil
+import com.inter.courseapp.utils.fromHtmlToText
 
-class FoodRecipesAdapter : RecyclerView.Adapter<FoodRecipesAdapter.FoodRecipesViewHolder>() {
+class FoodRecipesAdapter(
+    private val onItemClicked: (FoodRecipe) -> Unit
+) : RecyclerView.Adapter<FoodRecipesAdapter.FoodRecipesViewHolder>() {
 
     private var foodRecipesList = listOf<FoodRecipe>()
 
-    class FoodRecipesViewHolder(private val binding: FoodRecipeItemListBinding) :
+    inner class FoodRecipesViewHolder(private val binding: FoodRecipeItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(foodRecipe: FoodRecipe) {
@@ -27,7 +30,13 @@ class FoodRecipesAdapter : RecyclerView.Adapter<FoodRecipesAdapter.FoodRecipesVi
                     transformations(CircleCropTransformation())
                 }
                 tvName.text = foodRecipe.title
-                tvDescription.text = foodRecipe.summary
+                tvDescription.text = fromHtmlToText(text = foodRecipe.summary)
+                tvLikes.text = foodRecipe.aggregateLikes.toString()
+                tvCookingTime.text = foodRecipe.readyInMinutes.toString()
+
+                cdRow.setOnClickListener {
+                    onItemClicked(foodRecipe)
+                }
             }
 
         }
@@ -48,6 +57,10 @@ class FoodRecipesAdapter : RecyclerView.Adapter<FoodRecipesAdapter.FoodRecipesVi
     }
 
     override fun getItemCount() = foodRecipesList.size
+
+    fun revertItem(position: Int) {
+        notifyItemChanged(position)
+    }
 
     fun setData(newData: List<FoodRecipe>) {
 

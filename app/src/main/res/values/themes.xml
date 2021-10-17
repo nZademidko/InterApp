@@ -16,4 +16,9 @@
             @style/Widget.MaterialComponents.BottomNavigationView.Colored
         </item>
     </style>
+
+    <style name="textViewInfoDetails">
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
