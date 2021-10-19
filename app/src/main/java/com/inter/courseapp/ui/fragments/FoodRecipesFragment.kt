@@ -14,9 +14,10 @@ import com.inter.courseapp.databinding.FragmentFoodRecipesBinding
 import com.inter.courseapp.di.utils.ViewModelFactory
 import com.inter.courseapp.extensions.launchWhenStarted
 import com.inter.courseapp.models.entities.state.FoodListState
+import com.inter.courseapp.models.entities.state.Resource
 import com.inter.courseapp.ui.adapters.FoodRecipesAdapter
 import com.inter.courseapp.ui.adapters.decorations.FoodRecipesVerticalDividerItemDecoration
-import com.inter.courseapp.ui.adapters.touchhelpers.SwipeToSave
+import com.inter.courseapp.ui.adapters.touchhelpers.SwipeToSaveTouchHelper
 import com.inter.courseapp.ui.architecture.BaseFragment
 import com.inter.courseapp.ui.viewmodels.FoodRecipesViewModel
 import kotlinx.coroutines.flow.onEach
@@ -45,7 +46,8 @@ class FoodRecipesFragment @Inject constructor(
     }
 
     private fun setupList() {
-        viewModel.loadRecipes(viewModel.applyQueries())
+        if (viewModel.listRecipesState.value !is FoodListState.Success)
+            viewModel.loadRecipes(viewModel.applyQueries())
     }
 
     private fun setupUI() =
@@ -66,10 +68,14 @@ class FoodRecipesFragment @Inject constructor(
     private fun initSwipeToSave() {
         val onItemSwipeToSave = { position: Int ->
             foodRecipeAdapter.revertItem(position)
-            sendSnackBarMessage("$position Сохранен")
+            saveFoodRecipe(position)
         }
-        val swipeToSaveCallback = SwipeToSave(onItemSave = onItemSwipeToSave)
+        val swipeToSaveCallback = SwipeToSaveTouchHelper(onItemSave = onItemSwipeToSave)
         ItemTouchHelper(swipeToSaveCallback).attachToRecyclerView(binding.rvFoodRecipes)
+    }
+
+    private fun saveFoodRecipe(position: Int) {
+        viewModel.saveFoodRecipe(foodRecipeAdapter.getCurrentElement(position))
     }
 
     private fun setupObservers() {
@@ -78,6 +84,15 @@ class FoodRecipesFragment @Inject constructor(
                 is FoodListState.Loading -> onFoodStateListLoading()
                 is FoodListState.Success -> onFoodStateListSuccess(loadingResult.data)
                 is FoodListState.Error -> onFoodStateListError(loadingResult.message)
+            }
+        }.launchWhenStarted(lifecycleScope)
+
+        viewModel.saveRecipeState.onEach { loadingResult ->
+            when (loadingResult) {
+                is Resource.Loading -> {
+                }
+                is Resource.Error -> sendSnackBarMessage("Ошибка ${loadingResult.throwable.message}")
+                is Resource.Success -> sendSnackBarMessage("Рецепт сохранился.")
             }
         }.launchWhenStarted(lifecycleScope)
     }

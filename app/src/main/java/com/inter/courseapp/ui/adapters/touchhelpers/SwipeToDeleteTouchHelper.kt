@@ -3,8 +3,8 @@ package com.inter.courseapp.ui.adapters.touchhelpers
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class SwipeToSave(
-    val onItemSave: (Int) -> Unit
+class SwipeToDeleteTouchHelper(
+    val onItemDelete: (Int) -> Unit
 ) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.ACTION_STATE_SWIPE,
     ItemTouchHelper.LEFT
@@ -16,13 +16,9 @@ class SwipeToSave(
     ) = false
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        
-        onItemSave(viewHolder.adapterPosition)
+        onItemDelete(viewHolder.adapterPosition)
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder) = 0.4f
-
-
-
 
 }

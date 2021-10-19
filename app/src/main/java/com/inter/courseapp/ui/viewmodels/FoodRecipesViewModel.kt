@@ -7,14 +7,17 @@ import com.inter.courseapp.models.entities.foodRecipe.FoodRecipe
 import com.inter.courseapp.models.entities.state.FoodListState
 import com.inter.courseapp.models.entities.state.Resource
 import com.inter.courseapp.models.usecases.GetFoodRecipesUseCase
+import com.inter.courseapp.models.usecases.SaveFoodRecipeUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FoodRecipesViewModel @Inject constructor(
-    private val getFoodRecipesUseCase: GetFoodRecipesUseCase
+    private val getFoodRecipesUseCase: GetFoodRecipesUseCase,
+    private val saveFoodRecipeUseCase: SaveFoodRecipeUseCase
 ) : ViewModel() {
 
 
@@ -22,7 +25,12 @@ class FoodRecipesViewModel @Inject constructor(
         MutableStateFlow(FoodListState.Loading)
     val listRecipesState get() = _listRecipesState.asStateFlow()
 
-    fun loadRecipes(queries: HashMap<String, String>) =
+    private val _saveRecipeState: MutableStateFlow<Resource<String>> =
+        MutableStateFlow(Resource.Loading)
+    val saveRecipeState get() = _saveRecipeState.asStateFlow()
+
+
+    fun loadRecipes(queries: HashMap<String, String>) {
         getFoodRecipesUseCase(queries = queries).onEach { resource ->
 
             when (resource) {
@@ -44,6 +52,27 @@ class FoodRecipesViewModel @Inject constructor(
             }
 
         }.launchIn(viewModelScope)
+    }
+
+    fun saveFoodRecipe(foodRecipe: FoodRecipe) {
+        saveFoodRecipeUseCase(foodRecipe = foodRecipe).onEach { resource ->
+
+            when (resource) {
+
+                is Resource.Loading ->
+                    _saveRecipeState.value = Resource.Loading
+
+                is Resource.Success -> {
+                    _saveRecipeState.value = Resource.Success(resource.data)
+                    _saveRecipeState.value = Resource.Loading
+                }
+
+                is Resource.Error ->
+                    _saveRecipeState.value = Resource.Error(throwable = resource.throwable)
+            }
+
+        }.launchIn(viewModelScope)
+    }
 
     fun applyQueries() =
         hashMapOf(

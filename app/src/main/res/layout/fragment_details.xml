@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
+    app:layoutDescription="@xml/fragment_details_scene"
     tools:context=".ui.fragments.DetailsFragment">
 
 
@@ -37,10 +39,11 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ozaydin.serkan.com.image_zoom_view.ImageViewZoom
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivFood"
         android:layout_width="0dp"
         android:layout_height="300dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
@@ -60,7 +63,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingEnd="8dp">
+            android:paddingHorizontal="8dp">
 
             <ImageView
                 android:id="@+id/ivGlutenFree"
@@ -202,11 +205,10 @@
         android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:maxLines="2"
         android:minLines="1"
+        android:paddingHorizontal="16dp"
         android:text="Name"
         android:textColor="@color/shrine_pink_900"
         android:textSize="30sp"
@@ -217,8 +219,9 @@
         app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
     <ScrollView
-        android:layout_width="409dp"
-        android:layout_height="285dp"
+        android:id="@+id/svDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -233,11 +236,13 @@
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
                 android:paddingHorizontal="16dp"
                 android:text="Description"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

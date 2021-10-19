@@ -1,4 +1,4 @@
-package com.inter.courseapp.source.api
+package com.inter.courseapp.data.network
 
 import com.inter.courseapp.models.entities.api.FoodRecipeResponse
 import retrofit2.Response
