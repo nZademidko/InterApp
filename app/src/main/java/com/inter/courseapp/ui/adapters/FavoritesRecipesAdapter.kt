@@ -7,15 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.inter.courseapp.databinding.FoodRecipeItemListBinding
+import com.inter.courseapp.models.entities.database.FoodRecipeEntity
 import com.inter.courseapp.models.entities.foodRecipe.FoodRecipe
+import com.inter.courseapp.utils.FavoritesRecipesDiffUtil
 import com.inter.courseapp.utils.FoodRecipesDiffUtil
 import com.inter.courseapp.utils.fromHtmlToText
 
-class FoodRecipesAdapter(
+class FavoritesRecipesAdapter(
     private val onItemClicked: (FoodRecipe) -> Unit
-) : RecyclerView.Adapter<FoodRecipesAdapter.FoodRecipesViewHolder>() {
+) : RecyclerView.Adapter<FavoritesRecipesAdapter.FoodRecipesViewHolder>() {
 
-    private var foodRecipesList = listOf<FoodRecipe>()
+    private var foodRecipesList = mutableListOf<FoodRecipeEntity>()
 
     inner class FoodRecipesViewHolder(private val binding: FoodRecipeItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -53,23 +55,25 @@ class FoodRecipesAdapter(
 
 
     override fun onBindViewHolder(holder: FoodRecipesViewHolder, position: Int) {
-        holder.bind(foodRecipe = foodRecipesList[position])
+        holder.bind(foodRecipe = foodRecipesList[position].foodRecipe)
     }
 
     override fun getItemCount() = foodRecipesList.size
 
-    fun revertItem(position: Int) {
-        notifyItemChanged(position)
+    fun reloadData() {
+        setData(newData = foodRecipesList)
     }
 
-    fun setData(newData: List<FoodRecipe>) {
+    fun setData(newData: MutableList<FoodRecipeEntity>) {
 
-        val recipesDiffUtil = FoodRecipesDiffUtil(oldList = foodRecipesList, newList = newData)
+        val recipesDiffUtil = FavoritesRecipesDiffUtil(oldList = foodRecipesList, newList = newData)
         val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)
-
-        foodRecipesList = newData
+        foodRecipesList.clear()
+        foodRecipesList.addAll(newData)
         diffUtilResult.dispatchUpdatesTo(this)
     }
+
+    fun getFoodRecipeList() = foodRecipesList
 
     fun getCurrentElement(position: Int) =
         foodRecipesList[position]

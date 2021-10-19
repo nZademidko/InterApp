@@ -1,7 +1,7 @@
 package com.inter.courseapp.di.modules
 
-import com.inter.courseapp.source.api.FoodService
-import com.inter.courseapp.utils.FoodServiceBuilder
+import com.inter.courseapp.data.network.FoodService
+import com.inter.courseapp.data.network.FoodServiceBuilder
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

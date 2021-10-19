@@ -1,11 +1,12 @@
 package com.inter.courseapp.utils
 
 import androidx.recyclerview.widget.DiffUtil
+import com.inter.courseapp.models.entities.database.FoodRecipeEntity
 import com.inter.courseapp.models.entities.foodRecipe.FoodRecipe
 
-class FoodRecipesDiffUtil(
-    private val oldList: List<FoodRecipe>,
-    private val newList: List<FoodRecipe>
+class FavoritesRecipesDiffUtil(
+    private val oldList: List<FoodRecipeEntity>,
+    private val newList: List<FoodRecipeEntity>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() =

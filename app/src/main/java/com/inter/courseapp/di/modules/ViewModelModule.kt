@@ -2,6 +2,7 @@ package com.inter.courseapp.di.modules
 
 import androidx.lifecycle.ViewModel
 import com.inter.courseapp.di.utils.ViewModelKey
+import com.inter.courseapp.ui.viewmodels.DetailsViewModel
 import com.inter.courseapp.ui.viewmodels.FavoritesRecipesViewModel
 import com.inter.courseapp.ui.viewmodels.FoodRecipesViewModel
 import com.inter.courseapp.ui.viewmodels.MainViewModel
@@ -25,5 +26,12 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(FavoritesRecipesViewModel::class)
     fun bindFavoritesRecipesViewModel(viewModel: FavoritesRecipesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    fun bindDetailsViewModel(viewModel: DetailsViewModel): ViewModel
+
+
 
 }

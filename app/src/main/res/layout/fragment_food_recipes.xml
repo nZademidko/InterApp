@@ -7,7 +7,26 @@
     tools:context="ui.fragments.FoodRecipesFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/shrine_pink_100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Рецепты"/>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/rvFoodRecipes"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -15,5 +34,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/materialToolbar"
+        app:shimmer_recycler_item_count="9"
+        app:shimmer_recycler_layout="@layout/placeholder_food_recipe_item_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>

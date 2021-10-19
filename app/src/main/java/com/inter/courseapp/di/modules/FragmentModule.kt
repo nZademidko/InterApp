@@ -2,6 +2,7 @@ package com.inter.courseapp.di.modules
 
 import androidx.fragment.app.Fragment
 import com.inter.courseapp.di.utils.FragmentKey
+import com.inter.courseapp.ui.fragments.DetailsFragment
 import com.inter.courseapp.ui.fragments.FavoritesRecipesFragment
 import com.inter.courseapp.ui.fragments.FoodRecipesFragment
 import com.inter.courseapp.ui.fragments.MainFragment
@@ -27,4 +28,9 @@ interface FragmentModule {
     @IntoMap
     @FragmentKey(FavoritesRecipesFragment::class)
     fun bindFavoritesRecipesFragment(fragment: FavoritesRecipesFragment): Fragment
+
+    @Binds
+    @IntoMap
+    @FragmentKey(DetailsFragment::class)
+    fun bindDetailsFragment(fragment: DetailsFragment): Fragment
 }

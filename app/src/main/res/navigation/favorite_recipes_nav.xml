@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/favorite_recipes_nav"
     app:startDestination="@id/favoritesRecipesFragment">
 
     <fragment
         android:id="@+id/favoritesRecipesFragment"
         android:name="com.inter.courseapp.ui.fragments.FavoritesRecipesFragment"
-        android:label="FavoritesRecipesFragment" />
+        android:label="FavoritesRecipesFragment" >
+        <action
+            android:id="@+id/favoritesRecipes_to_details"
+            app:destination="@id/detailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment2"
+        android:name="com.inter.courseapp.ui.fragments.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="foodRecipe"
+            app:argType="com.inter.courseapp.models.entities.foodRecipe.FoodRecipe" />
+    </fragment>
 </navigation>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
+    app:layoutDescription="@xml/fragment_details_scene"
+    tools:context=".ui.fragments.DetailsFragment">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="12dp"
+                app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Информация"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivFood"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        tools:src="@tools:sample/avatars" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="-16dp"
+        android:backgroundTint="@color/shrine_pink_50_0.5"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivFood"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="8dp">
+
+            <ImageView
+                android:id="@+id/ivGlutenFree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_check_mark"
+                app:layout_constraintBottom_toTopOf="@+id/ivVegan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivVegetarian" />
+
+            <TextView
+                android:id="@+id/tvGlutenFree"
+                style="@style/textViewInfoDetails"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="2dp"
+                android:text="Gluten Free"
+                app:layout_constraintBottom_toBottomOf="@+id/ivGlutenFree"
+                app:layout_constraintStart_toEndOf="@+id/ivGlutenFree"
+                app:layout_constraintTop_toTopOf="@+id/ivGlutenFree" />
+
+            <TextView
+                android:id="@+id/tvVegetarian"
+                style="@style/textViewInfoDetails"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Vegetarian"
+
+                app:layout_constraintBottom_toBottomOf="@+id/ivVegetarian"
+                app:layout_constraintStart_toEndOf="@+id/ivVegetarian"
+                app:layout_constraintTop_toTopOf="@+id/ivVegetarian" />
+
+            <ImageView
+                android:id="@+id/ivVegetarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_check_mark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivVegan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_check_mark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tvVegan"
+                style="@style/textViewInfoDetails"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Vegan"
+
+                app:layout_constraintBottom_toBottomOf="@+id/ivVegan"
+                app:layout_constraintStart_toEndOf="@+id/ivVegan"
+                app:layout_constraintTop_toTopOf="@+id/ivVegan" />
+
+            <ImageView
+                android:id="@+id/ivHealthy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_check_mark"
+                app:layout_constraintEnd_toStartOf="@+id/tvHealthy"
+                app:layout_constraintStart_toEndOf="@+id/tvVegetarian"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHealthy"
+                style="@style/textViewInfoDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="Healthy"
+
+                app:layout_constraintBottom_toBottomOf="@+id/ivHealthy"
+                app:layout_constraintStart_toEndOf="@+id/ivHealthy"
+                app:layout_constraintTop_toTopOf="@+id/ivHealthy" />
+
+            <TextView
+                android:id="@+id/tvCheap"
+                style="@style/textViewInfoDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="Cheap"
+
+                app:layout_constraintBottom_toBottomOf="@+id/ivCheap"
+                app:layout_constraintStart_toEndOf="@+id/ivCheap"
+                app:layout_constraintTop_toTopOf="@+id/ivCheap" />
+
+            <TextView
+                android:id="@+id/tvDairyFree"
+                style="@style/textViewInfoDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="Dairy Free"
+
+                app:layout_constraintBottom_toBottomOf="@+id/ivDairyFree"
+                app:layout_constraintStart_toEndOf="@+id/ivDairyFree"
+                app:layout_constraintTop_toTopOf="@+id/ivDairyFree" />
+
+            <ImageView
+                android:id="@+id/ivDairyFree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_check_mark"
+                app:layout_constraintBottom_toTopOf="@+id/ivCheap"
+                app:layout_constraintStart_toEndOf="@+id/tvGlutenFree"
+                app:layout_constraintTop_toBottomOf="@+id/ivHealthy" />
+
+            <ImageView
+                android:id="@+id/ivCheap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_check_mark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvVegan" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:maxLines="2"
+        android:minLines="1"
+        android:paddingHorizontal="16dp"
+        android:text="Name"
+        android:textColor="@color/shrine_pink_900"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+    <ScrollView
+        android:id="@+id/svDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvName">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:paddingHorizontal="16dp"
+                android:text="Description"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

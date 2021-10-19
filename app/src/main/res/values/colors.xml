@@ -10,6 +10,9 @@
     <color name="shrine_pink_100">#FEDBD0</color>
     <color name="shrine_pink_900">#442C2E</color>
     <color name="shrine_pink_50">#FEEAE6</color>
+    <color name="shrine_pink_50_0.5">#D9FEEAE6</color>
     <color name="red_200">#EE2236</color>
     <color name="yellow_200">#FFC107</color>
+    <color name="grey">#AAA8A8</color>
+    <color name="green_100">#2F7451</color>
 </resources>

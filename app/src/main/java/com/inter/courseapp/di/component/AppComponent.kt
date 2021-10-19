@@ -16,7 +16,8 @@ import javax.inject.Singleton
         FragmentModule::class,
         ViewModelModule::class,
         NetworkModule::class,
-        UseCaseModule::class
+        UseCaseModule::class,
+        DatabaseModule::class
     ]
 )
 @Singleton

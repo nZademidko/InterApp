@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.inter.courseapp.models.entities.foodRecipe.FoodRecipe
 import com.inter.courseapp.R
@@ -12,7 +14,10 @@ import com.inter.courseapp.databinding.FragmentFoodRecipesBinding
 import com.inter.courseapp.di.utils.ViewModelFactory
 import com.inter.courseapp.extensions.launchWhenStarted
 import com.inter.courseapp.models.entities.state.FoodListState
+import com.inter.courseapp.models.entities.state.Resource
 import com.inter.courseapp.ui.adapters.FoodRecipesAdapter
+import com.inter.courseapp.ui.adapters.decorations.FoodRecipesVerticalDividerItemDecoration
+import com.inter.courseapp.ui.adapters.touchhelpers.SwipeToSaveTouchHelper
 import com.inter.courseapp.ui.architecture.BaseFragment
 import com.inter.courseapp.ui.viewmodels.FoodRecipesViewModel
 import kotlinx.coroutines.flow.onEach
@@ -26,7 +31,12 @@ class FoodRecipesFragment @Inject constructor(
     ) {
 
     private val viewModel: FoodRecipesViewModel by viewModels { viewModelFactory }
-    private val foodRecipeAdapter by lazy { FoodRecipesAdapter() }
+
+    private val foodRecipeAdapter by lazy { FoodRecipesAdapter(onItemClicked = onItemClicked) }
+    private val onItemClicked = { item: FoodRecipe ->
+        val action = FoodRecipesFragmentDirections.foodRecipesToDetails(item)
+        findNavController().navigate(action)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,18 +46,37 @@ class FoodRecipesFragment @Inject constructor(
     }
 
     private fun setupList() {
-        viewModel.loadRecipes(viewModel.applyQueries())
+        if (viewModel.listRecipesState.value !is FoodListState.Success)
+            viewModel.loadRecipes(viewModel.applyQueries())
     }
 
     private fun setupUI() =
         with(binding) {
-
             with(rvFoodRecipes) {
+                addItemDecoration(
+                    FoodRecipesVerticalDividerItemDecoration(
+                        innerDivider = 16,
+                        outerDivider = 8
+                    )
+                )
                 adapter = foodRecipeAdapter
                 layoutManager = LinearLayoutManager(requireContext())
             }
-
+            initSwipeToSave()
         }
+
+    private fun initSwipeToSave() {
+        val onItemSwipeToSave = { position: Int ->
+            foodRecipeAdapter.revertItem(position)
+            saveFoodRecipe(position)
+        }
+        val swipeToSaveCallback = SwipeToSaveTouchHelper(onItemSave = onItemSwipeToSave)
+        ItemTouchHelper(swipeToSaveCallback).attachToRecyclerView(binding.rvFoodRecipes)
+    }
+
+    private fun saveFoodRecipe(position: Int) {
+        viewModel.saveFoodRecipe(foodRecipeAdapter.getCurrentElement(position))
+    }
 
     private fun setupObservers() {
         viewModel.listRecipesState.onEach { loadingResult ->
@@ -57,20 +86,37 @@ class FoodRecipesFragment @Inject constructor(
                 is FoodListState.Error -> onFoodStateListError(loadingResult.message)
             }
         }.launchWhenStarted(lifecycleScope)
+
+        viewModel.saveRecipeState.onEach { loadingResult ->
+            when (loadingResult) {
+                is Resource.Loading -> {
+                }
+                is Resource.Error -> sendSnackBarMessage("Ошибка ${loadingResult.throwable.message}")
+                is Resource.Success -> sendSnackBarMessage("Рецепт сохранился.")
+            }
+        }.launchWhenStarted(lifecycleScope)
     }
 
     private fun onFoodStateListLoading() {
-        sendSnackBarMessage("Загрузка данных...")
+        showShimmerEffect()
     }
 
     private fun onFoodStateListSuccess(data: List<FoodRecipe>) {
-
+        hideShimmerEffect()
         foodRecipeAdapter.setData(data)
-
     }
 
     private fun onFoodStateListError(message: String) {
+        hideShimmerEffect()
         sendSnackBarMessage(message = message)
+    }
+
+    private fun showShimmerEffect() {
+        binding.rvFoodRecipes.showShimmer()
+    }
+
+    private fun hideShimmerEffect() {
+        binding.rvFoodRecipes.hideShimmer()
     }
 
     override fun getViewBinding(layoutInflater: LayoutInflater) =

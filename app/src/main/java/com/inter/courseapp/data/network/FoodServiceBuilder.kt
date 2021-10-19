@@ -1,7 +1,6 @@
-package com.inter.courseapp.utils
+package com.inter.courseapp.data.network
 
 import com.inter.courseapp.BASE_API_URL
-import com.inter.courseapp.source.api.FoodService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
