@@ -15,6 +15,26 @@
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
+        <Constraint
+            motion:layout_constraintStart_toEndOf="@+id/ivHealthy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/ivHealthy"
+            motion:layout_constraintTop_toTopOf="@+id/ivHealthy"
+            android:id="@+id/tvHealthy"
+            motion:layout_constraintEnd_toEndOf="@+id/tvDairyFree"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp" />
+        <Constraint
+            motion:layout_constraintStart_toEndOf="@+id/ivCheap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/ivCheap"
+            motion:layout_constraintTop_toTopOf="@+id/ivCheap"
+            android:id="@+id/tvCheap"
+            motion:layout_constraintEnd_toEndOf="@+id/tvDairyFree"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -59,6 +79,7 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/materialCardView"
             motion:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/svDescription" />
+            android:id="@+id/svDescription"
+            android:layout_marginTop="8dp" />
     </ConstraintSet>
 </MotionScene>
